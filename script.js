@@ -1,10 +1,13 @@
-const X = 'X';
-const O = 'O';
-
 const game = (function () {
   let player1Turn = true;
-  
+  const X = 'X';
+  const O = 'O';
+  const gameStatus = document.querySelector('.game-status');
   let gameboardContainer = document.querySelector('.gameboard');
+
+  const updateStatus = () => {
+    gameStatus.textContent = player1Turn ? `Player 1's Turn` : `Player 2's Turn`;
+  };
 
   const handleGameboardSelection = e => {
     let index = e.target.dataset.index;
@@ -13,12 +16,15 @@ const game = (function () {
     if (successfulPlacement) {
       player1Turn = !player1Turn
     }
+    updateStatus();
   }
 
   gameboardContainer.addEventListener('click', handleGameboardSelection);
 
   return {
     gameboardContainer,
+    X,
+    O,
   };
 })();
 
@@ -57,5 +63,5 @@ const Player = name => {
 };
 
 gameboard.display();
-let playerX = Player(X);
-let playerO = Player(O);
+let playerX = Player(game.X);
+let playerO = Player(game.O);

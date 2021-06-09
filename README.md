@@ -8,4 +8,5 @@ From The Odin Project
   - I created the display function within the gameBoard module which will loops over the gameBoardArray and displays its contents.
   - I also added a bit of stylying to make it look more like a tic-tac-toe game :)
 
-3. Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker. Don’t forget the logic that keeps players from playing in spots that are already taken!
+3. Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker. Don’t forget the logic that keeps players from playing in spots that are already taken! 
+  - I added a click event listener to teh gameboard. Whenever a user clicks on the gameboard, the game will use the current player (player 1 or 2) as well as the gamepiece that was clicked to determine if the X or O can be placed. If the selection is successful (there was no piece already there), then it switches to the next player's turn;
