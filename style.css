@@ -1,5 +1,6 @@
 :root {
   --fs-h1: 5em;
+  --fs-gamepiece: 2em;
 }
 
 body {
@@ -25,5 +26,5 @@ h1 {
 }
 
 .gamepiece {
-
+  font-size: var(--fs-gamepiece);
 }
