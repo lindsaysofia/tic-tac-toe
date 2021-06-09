@@ -1,0 +1,29 @@
+:root {
+  --fs-h1: 5em;
+}
+
+body {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Itim', cursive;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 50%;
+  height: 50%;
+}
+
+.gamepiece {
+
+}
