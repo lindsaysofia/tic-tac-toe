@@ -1,5 +1,5 @@
 :root {
-  --fs-h1: 5em;
+  --fs-h1: 4em;
   --fs-gamepiece: 2em;
 }
 
@@ -10,11 +10,22 @@ body {
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+body, 
+button {
   font-family: 'Itim', cursive;
 }
 
 h1 {
   font-size: var(--fs-h1);
+}
+
+.player-scores {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  font-size: 1.5em;
 }
 
 .gameboard {
@@ -27,4 +38,19 @@ h1 {
 
 .gamepiece {
   font-size: var(--fs-gamepiece);
+}
+
+.restart {
+  background-color: tomato;
+  border: none;
+  outline: none;
+  width: 100px;
+  height: 25px;
+  margin-top: 1em;
+  font-size: 1em;
+}
+
+.restart:hover {
+  cursor: pointer;
+  opacity: 0.90;
 }
