@@ -24,69 +24,86 @@ const Player = gamepiece => {
 const game = (function () {
   const X = 'X';
   const O = 'O';
-  let player1Turn = true;
-  let player1 = Player(X);
-  let player2 = Player(O);
+  let playerXTurn = true;
+  let playerX = Player(X);
+  let playerO = Player(O);
   let finishedGame = false;
   const TIE = 'TIE';
   const winningXRegex = /(XXX[XO1]{6})|([XO1]{3}XXX[XO1]{3})|([XO1]{6}XXX)|(X[XO1]{2}X[XO1]{2}X[XO1]{2})|([XO1]X[XO1]{2}X[XO1]{2}X[XO1])|([XO1]{2}X[XO1]{2}X[XO1]{2}X)|(X[XO1]{3}X[XO1]{3}X)|([XO1]{2}X[XO1]X[XO1]X[XO1]{2})/i;
   const winningORegex = /(OOO[XO1]{6})|([XO1]{3}OOO[XO1]{3})|([XO1]{6}OOO)|(O[XO1]{2}O[XO1]{2}O[XO1]{2})|([XO1]O[XO1]{2}O[XO1]{2}O[XO1])|([XO1]{2}O[XO1]{2}O[XO1]{2}O)|(O[XO1]{3}O[XO1]{3}O)|([XO1]{2}O[XO1]O[XO1]O[XO1]{2})/i;
   const gameStatus = document.querySelector('.game-status');
-  const restart = document.querySelector('.restart');
-  let player1Score = document.querySelector('.player1-score');
-  let player2Score = document.querySelector('.player2-score');
+  const restartButton = document.querySelector('.restart');
+  const newGameButton = document.querySelector('.new-game');
+  const confettiContainer = document.querySelector('.container');
+  let playerXScore = document.querySelector('.playerX-score');
+  let playerOScore = document.querySelector('.playerO-score');
   let gameboardContainer = document.querySelector('.gameboard');
 
   const restartGame = () => {
-    player1.resetScore();
-    player2.resetScore();
+    playerX.resetScore();
+    playerO.resetScore();
     updatePlayerScores();
-    player1Turn = true;
+    newGame();
+  }
+
+  const newGame = () => {
+    confettiContainer.innerHTML = '';
+    playerXTurn = true;
     finishedGame = false;
-    gameStatus.textContent = player1Turn ? `Player 1's Turn` : `Player 2's Turn`;
+    gameStatus.textContent = playerXTurn ? `Player X's Turn` : `Player O's Turn`;
     gameboard.resetGameboard();
     gameboard.display();
-  }
+  };
 
   const gameOver = (outcome) => {
     switch(outcome) {
       case X:
-        player1.increaseScore();
-        gameStatus.textContent = `Player 1 Wins!`;
+        playerX.increaseScore();
+        gameStatus.textContent = `Player X Wins!`;
         break;
       case O:
-        player2.increaseScore();
-        gameStatus.textContent = `Player 2 Wins!`;
+        playerO.increaseScore();
+        gameStatus.textContent = `Player O Wins!`;
         break;
       case TIE:
-        player1.increaseScore();
-        player2.increaseScore();
+        playerX.increaseScore();
+        playerO.increaseScore();
         gameStatus.textContent = `It's a tie!`;
         break;
     }
     finishedGame = true;
     updatePlayerScores();
+    createConfetti();
   }
 
   const updatePlayerScores = () => {
-    player1Score.textContent = player1.getScore();
-    player2Score.textContent = player2.getScore();
+    playerXScore.textContent = playerX.getScore();
+    playerOScore.textContent = playerO.getScore();
   }
 
   const togglePlayer = () => {
-    player1Turn = !player1Turn;
-    gameStatus.textContent = player1Turn ? `Player 1's Turn` : `Player 2's Turn`;
+    playerXTurn = !playerXTurn;
+    gameStatus.textContent = playerXTurn ? `Player X's Turn` : `Player O's Turn`;
   };
 
   const handleGameboardSelection = e => {
     if (finishedGame) return;
     let index = e.target.dataset.index;
-    let selection = player1Turn ? X : O;
+    let selection = playerXTurn ? X : O;
     gameboard.setGamepiece(index, selection);
   }
 
+  const createConfetti = () => {
+    for (let i = 1; i <= 50; i++) {
+      let confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confettiContainer.appendChild(confetti);
+    }
+  };
+
   gameboardContainer.addEventListener('click', handleGameboardSelection);
-  restart.addEventListener('click', restartGame);
+  restartButton.addEventListener('click', restartGame);
+  newGameButton.addEventListener('click', newGame);
 
   return {
     gameboardContainer,
